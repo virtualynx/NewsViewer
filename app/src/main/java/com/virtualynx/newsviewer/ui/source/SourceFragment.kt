@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -33,27 +34,22 @@ class SourceFragment : Fragment() {
 
         sourceViewModel.fetchSources()
 
-//        val textView: TextView = binding.textGallery
-//        sourceViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-
         sourceViewModel.sources.observe(viewLifecycleOwner, Observer {
             if (it!=null && it.isNotEmpty()){
 //                rv_home.visibility = View.VISIBLE
 //                adapter.setData(it as ArrayList<PostModel>)
 
-                val sourceNames = it.stream().map{ a -> a.name}.toList()
                 binding.sourceList.adapter = ArrayAdapter(
                     requireContext(),
                     R.layout.simple_list_item_1,
-                    sourceNames
+                    it.stream().map{ a -> a.name}.toList()
                 )
 
 //                binding.sourceList.adapter = SourceArrayAdapter(requireActivity(), it)
             }else{
-//                showToast("Something went wrong")
                 println("Something went wrong")
+
+                Toast.makeText(requireActivity(), "Cannot fetch source list", Toast.LENGTH_LONG).show()
             }
 //            progress_home.visibility = View.GONE
         })
@@ -65,9 +61,11 @@ class SourceFragment : Fragment() {
             val itemIdAtPos = adapterView.getItemIdAtPosition(position)
 
             // Navigate to the destination fragment
-            findNavController().navigate(com.virtualynx.newsviewer.R.id.action_nav_to_category)
+//            findNavController().navigate(com.virtualynx.newsviewer.R.id.action_nav_to_category)
 //            val action = .actionToDestinationFragment()
 //            findNavController().navigate(action)
+
+            println("id: $id, itemAtPos: $itemAtPos, itemIdAtPos: $itemIdAtPos")
         }
 
         return root

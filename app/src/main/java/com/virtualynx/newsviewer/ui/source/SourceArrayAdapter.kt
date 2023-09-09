@@ -1,6 +1,8 @@
 package com.virtualynx.newsviewer.ui.source
 
 import android.app.Activity
+import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -9,11 +11,11 @@ import com.virtualynx.newsviewer.R
 import com.virtualynx.newsviewer.model.Source
 
 class SourceArrayAdapter(
-    private val context: Activity,
+    private val context: Context,
     private val sources: List<Source>
 ) : ArrayAdapter<Int>(context, R.layout.row_source) {
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val inflater = context.layoutInflater
+        val inflater = LayoutInflater.from(context)
         val source: Source = sources[position]
 
 //        val binding = RowSourceBinding.inflate(inflater, parent, false)
