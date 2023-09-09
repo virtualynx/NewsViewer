@@ -3,9 +3,9 @@ package com.virtualynx.newsviewer.model
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
-data class Article(
+data class ArticleModel(
     @SerializedName("source")
-    val source: Source,
+    val sourceModel: SourceModel,
     val author: String,
     val title: String,
     val description: String,

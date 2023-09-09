@@ -5,36 +5,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.virtualynx.newsviewer.R
-import com.virtualynx.newsviewer.model.Source
+import com.virtualynx.newsviewer.model.SourceModel
 
-class SourceAdapter: RecyclerView.Adapter<SourceAdapter.SourceViewHolder>(){
+class SourceAdapter: RecyclerView.Adapter<SourceAdapter.ViewHolder>(){
 
-    private var data : ArrayList<Source>?=null
+    private var data : ArrayList<SourceModel>?=null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SourceViewHolder {
-        return SourceViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.fragment_source, parent, false))
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        fun bindView(item: SourceModel?) {
+//            itemView.tv_home_item_title.text = item?.title
+//            itemView.tv_home_item_body.text = item?.body
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.fragment_source, parent, false))
     }
 
     override fun getItemCount(): Int {
         return data?.size ?: 0
     }
 
-    override fun onBindViewHolder(holder: SourceViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data?.get(position)
 
         holder.bindView(item)
     }
 
-    fun setData(list: ArrayList<Source>){
+    fun setData(list: ArrayList<SourceModel>){
         data = list
         notifyDataSetChanged()
-    }
-
-    class SourceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bindView(item: Source?) {
-//            itemView.tv_home_item_title.text = item?.title
-//            itemView.tv_home_item_body.text = item?.body
-        }
-
     }
 }
