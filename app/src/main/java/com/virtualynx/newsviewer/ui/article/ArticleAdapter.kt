@@ -1,4 +1,4 @@
-package com.virtualynx.newsviewer.ui.source
+package com.virtualynx.newsviewer.ui.article
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.virtualynx.newsviewer.R
 import com.virtualynx.newsviewer.model.SourceModel
 
-class SourceAdapter: RecyclerView.Adapter<SourceAdapter.ViewHolder>(){
+class ArticleAdapter: RecyclerView.Adapter<ArticleAdapter.ViewHolder>(){
 
     private var data : ArrayList<SourceModel>?=null
 

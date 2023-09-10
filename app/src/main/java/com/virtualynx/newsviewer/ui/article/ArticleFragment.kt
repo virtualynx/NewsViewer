@@ -1,24 +1,22 @@
-package com.virtualynx.newsviewer.ui.source
+package com.virtualynx.newsviewer.ui.article
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.virtualynx.newsviewer.R
-import com.virtualynx.newsviewer.databinding.FragmentSourceBinding
+import com.virtualynx.newsviewer.databinding.FragmentArticleBinding
+import com.virtualynx.newsviewer.model.ArticleModel
 import com.virtualynx.newsviewer.model.SourceModel
 
-class SourceFragment : Fragment(), SourceItemClickListener {
+class ArticleFragment : Fragment(), ArticleItemClickListener {
 
-    private var _binding: FragmentSourceBinding? = null
+    private var _binding: FragmentArticleBinding? = null
 
-    private var _adapter: SourceRvAdapter? = null
+    private var _adapter: ArticleRvAdapter? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,15 +28,15 @@ class SourceFragment : Fragment(), SourceItemClickListener {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val viewModel = ViewModelProvider(this).get(SourceViewModel::class.java)
+        val viewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
 
-        _binding = FragmentSourceBinding.inflate(inflater, container, false)
+        _binding = FragmentArticleBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        _adapter = SourceRvAdapter(this)
-        binding.rvSource.adapter = _adapter
+        _adapter = ArticleRvAdapter(this)
+        binding.rvArticle.adapter = _adapter
 
-        viewModel.sources.observe(viewLifecycleOwner, Observer {
+        viewModel.articles.observe(viewLifecycleOwner, Observer {
             if (it!=null && it.isNotEmpty()){
 //                binding.sourceList.adapter = ArrayAdapter(
 //                    requireContext(),
@@ -52,11 +50,11 @@ class SourceFragment : Fragment(), SourceItemClickListener {
 
                 Toast.makeText(requireActivity(), "Cannot fetch source list", Toast.LENGTH_LONG).show()
             }
-            binding.rvSource.visibility = View.VISIBLE
-            binding.progressSource.visibility = View.GONE
+            binding.rvArticle.visibility = View.VISIBLE
+            binding.progressArticle.visibility = View.GONE
         })
 
-        viewModel.fetch()
+        arguments?.getString("sourceId")?.let { viewModel.fetch(it) }
 
 //        binding.lvSource.setOnItemClickListener { adapterView, view, position, id ->
 //            // Handle item click here
@@ -84,10 +82,7 @@ class SourceFragment : Fragment(), SourceItemClickListener {
         _adapter = null
     }
 
-    override fun onItemClicked(view: View, source: SourceModel?) {
-        println("Clicked source: $source")
-
-        val bundle = bundleOf("sourceId" to source?.id)
-        findNavController().navigate(R.id.action_nav_to_article, bundle)
+    override fun onItemClicked(view: View, article: ArticleModel?) {
+        println("Clicked source: $article")
     }
 }

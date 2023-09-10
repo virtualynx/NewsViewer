@@ -8,25 +8,44 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.virtualynx.newsviewer.ui.home.HomeFragment"
-        android:label="@string/menu_categories"
+        android:label="@string/menu_home"
         tools:layout="@layout/fragment_home">
 
         <action
             android:id="@+id/action_nav_to_category"
             app:destination="@id/nav_category" />
+        <action
+            android:id="@+id/action_nav_to_source"
+            app:destination="@id/nav_source" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_category"
         android:name="com.virtualynx.newsviewer.ui.category.CategoryFragment"
         android:label="@string/menu_categories"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category">
+
+        <action
+            android:id="@+id/action_nav_to_source"
+            app:destination="@id/nav_source" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_source"
         android:name="com.virtualynx.newsviewer.ui.source.SourceFragment"
         android:label="@string/menu_sources"
-        tools:layout="@layout/fragment_source" />
+        tools:layout="@layout/fragment_source">
+
+        <action
+            android:id="@+id/action_nav_to_article"
+            app:destination="@id/nav_article" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_article"
+        android:name="com.virtualynx.newsviewer.ui.article.ArticleFragment"
+        android:label="@string/menu_articles"
+        tools:layout="@layout/fragment_article" />
 
     <fragment
         android:id="@+id/nav_slideshow"

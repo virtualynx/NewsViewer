@@ -3,27 +3,32 @@ package com.virtualynx.newsviewer.ui.source
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.virtualynx.newsviewer.R
 import com.virtualynx.newsviewer.model.SourceModel
 
-class SourceRvAdapter(): RecyclerView.Adapter<SourceRvAdapter.ViewHolder>(){
+class SourceRvAdapter(
+    private val _listener: SourceItemClickListener
+): RecyclerView.Adapter<SourceRvAdapter.ViewHolder>(){
     private var _data : List<SourceModel>? = emptyList()
+//    private var _listener: SourceItemClickListener? = null
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val textTitle: TextView
-        val textBody: TextView
+//        val textTitle: TextView
+//        val textBody: TextView
+        val textSource: TextView
 
         init{
-            textTitle = itemView.findViewById(R.id.text_item_title)
-            textBody = itemView.findViewById(R.id.text_item_body)
+//            textTitle = itemView.findViewById(R.id.text_item_title)
+//            textBody = itemView.findViewById(R.id.text_item_body)
+            textSource = itemView.findViewById(R.id.text_source)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_source, parent, false))
-//        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_item_source, parent, false))
     }
 
     override fun getItemCount(): Int {
@@ -39,8 +44,12 @@ class SourceRvAdapter(): RecyclerView.Adapter<SourceRvAdapter.ViewHolder>(){
         val item = _data?.get(position)
 
 //        holder.bindView(item)
-        holder.textTitle.text = item?.id
-        holder.textBody.text = item?.name
+//        holder.textTitle.text = item?.id
+//        holder.textBody.text = item?.name
+        holder.textSource.text = item?.name
+        holder.textSource.setOnClickListener {
+            _listener?.onItemClicked(it, item)
+        }
     }
 
 //    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){

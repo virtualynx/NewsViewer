@@ -52,7 +52,12 @@ class HomeFragment : Fragment() {
             val itemIdAtPos = adapterView.getItemIdAtPosition(position)
 
             // Navigate to the destination fragment
-            findNavController().navigate(R.id.action_nav_to_category)
+            if(position == 0){
+                findNavController().navigate(R.id.action_nav_to_category)
+            }else if(position == 1){
+                findNavController().navigate(R.id.action_nav_to_source)
+            }
+
 //            val action = .actionToDestinationFragment()
 //            findNavController().navigate(action)
         }

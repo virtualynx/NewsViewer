@@ -4,24 +4,26 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ServiceBuilder {
-    public const val API_KEY ="f565c7bc7aa34aa6b908850e698ae574"
-    private const val URL ="https://newsapi.org/v2/"
+class ServiceBuilder {
+    companion object ServiceBuilder {
+        public const val API_KEY = "f565c7bc7aa34aa6b908850e698ae574"
+        private const val URL = "https://newsapi.org/v2/"
 
-    //CREATE HTTP CLIENT
-    private val okHttp = OkHttpClient.Builder()
+        //CREATE HTTP CLIENT
+        private val okHttp = OkHttpClient.Builder()
 
-    //retrofit builder
-    private val retrofitBuilder = Retrofit.Builder().baseUrl(URL)
-        .addConverterFactory(GsonConverterFactory.create())
-        .client(okHttp.build())
+        //retrofit builder
+        private val retrofitBuilder = Retrofit.Builder().baseUrl(URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttp.build())
 
-    private val retrofit = retrofitBuilder.build()
+        private val retrofit = retrofitBuilder.build()
 
-    //we will use this class to create an anonymous inner class function that
-    //implements Country service Interface
+        //we will use this class to create an anonymous inner class function that
+        //implements Country service Interface
 
-    fun <T> buildService (serviceType :Class<T>):T{
-        return retrofit.create(serviceType)
+        fun <T> buildService(serviceType: Class<T>): T {
+            return retrofit.create(serviceType)
+        }
     }
 }
