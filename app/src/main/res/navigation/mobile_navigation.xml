@@ -45,11 +45,22 @@
         android:id="@+id/nav_article"
         android:name="com.virtualynx.newsviewer.ui.article.ArticleFragment"
         android:label="@string/menu_articles"
-        tools:layout="@layout/fragment_article" />
+        tools:layout="@layout/fragment_article">
+
+        <action
+            android:id="@+id/action_nav_to_article_read"
+            app:destination="@id/nav_article_read" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.virtualynx.newsviewer.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_article_read"
+        android:name="com.virtualynx.newsviewer.ui.article.read.ArticleReadFragment"
+        android:label="@string/menu_article_read"
+        tools:layout="@layout/fragment_article_read" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.virtualynx.newsviewer.ui.search.SearchFragment"
+        android:label="@string/menu_search"
+        tools:layout="@layout/fragment_search" />
 </navigation>

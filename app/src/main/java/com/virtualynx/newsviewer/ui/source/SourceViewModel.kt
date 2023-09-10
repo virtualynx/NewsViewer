@@ -14,8 +14,14 @@ import kotlin.streams.toList
 class SourceViewModel : ViewModel() {
     val sources: MutableLiveData<List<SourceModel>> = MutableLiveData()
 
-    fun fetch(){
-        val client = ServiceBuilder.buildService(NewsService::class.java).getSources()
+    fun fetch(category: String?){
+        var client:  Call<ApiResponseSource>
+
+        if(category.isNullOrEmpty()){
+            client = ServiceBuilder.buildService(NewsService::class.java).getSources()
+        }else{
+            client = ServiceBuilder.buildService(NewsService::class.java).getSources(category)
+        }
 
         client.enqueue(object : Callback<ApiResponseSource> {
 

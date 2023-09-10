@@ -18,7 +18,7 @@ class SourceFragment : Fragment(), SourceItemClickListener {
 
     private var _binding: FragmentSourceBinding? = null
 
-    private var _adapter: SourceRvAdapter? = null
+    private var _adapter: SourceAdapter? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -35,7 +35,7 @@ class SourceFragment : Fragment(), SourceItemClickListener {
         _binding = FragmentSourceBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        _adapter = SourceRvAdapter(this)
+        _adapter = SourceAdapter(this)
         binding.rvSource.adapter = _adapter
 
         viewModel.sources.observe(viewLifecycleOwner, Observer {
@@ -56,7 +56,8 @@ class SourceFragment : Fragment(), SourceItemClickListener {
             binding.progressSource.visibility = View.GONE
         })
 
-        viewModel.fetch()
+        val categoryId = arguments?.getString("categoryId")
+        viewModel.fetch(categoryId)
 
 //        binding.lvSource.setOnItemClickListener { adapterView, view, position, id ->
 //            // Handle item click here

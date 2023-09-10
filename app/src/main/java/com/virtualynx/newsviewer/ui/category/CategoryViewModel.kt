@@ -3,11 +3,8 @@ package com.virtualynx.newsviewer.ui.category
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.virtualynx.newsviewer.model.CategoryModel
 
 class CategoryViewModel : ViewModel() {
-
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
+    val categories : MutableLiveData<List<CategoryModel>> = MutableLiveData()
 }

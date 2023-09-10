@@ -8,9 +8,9 @@
     tools:context=".ui.category.CategoryFragment">
 
         <ListView
-            android:id="@+id/category_list"
+            android:id="@+id/lv_category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             />

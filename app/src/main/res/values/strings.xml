@@ -9,7 +9,8 @@
 
     <string name="menu_home">Home</string>
     <string name="menu_categories">By Categories</string>
+    <string name="menu_search">Search</string>
     <string name="menu_sources">By Sources</string>
     <string name="menu_articles">Articles</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_article_read">News</string>
 </resources>

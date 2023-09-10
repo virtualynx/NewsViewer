@@ -38,8 +38,8 @@ class HomeFragment : Fragment() {
             requireContext(),
             android.R.layout.simple_list_item_1,
             arrayOf(
-                "List By Category",
-                "Search News"
+                "List Article By Category",
+                "List Article By Source"
             )
         )
 
