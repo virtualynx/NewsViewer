@@ -11,8 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.virtualynx.newsviewer.R
 import com.virtualynx.newsviewer.databinding.FragmentSearchBinding
+import com.virtualynx.newsviewer.entity.ArticleEntity
+import com.virtualynx.newsviewer.model.ArticleModel
+import com.virtualynx.newsviewer.service.AppDatabase
 import com.virtualynx.newsviewer.ui.source.SourceViewModel
 import kotlin.streams.toList
 
@@ -51,7 +55,7 @@ class SearchFragment : Fragment() {
             binding.progress.visibility = View.GONE
         })
 
-        sourceViewModel.fetch();
+//        sourceViewModel.fetch();
 
         binding.btnSearch.setOnClickListener {
             val position = binding.spinnerSource.selectedItemPosition

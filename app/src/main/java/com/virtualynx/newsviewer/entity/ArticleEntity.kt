@@ -1,18 +1,19 @@
-package com.virtualynx.newsviewer.model
+package com.virtualynx.newsviewer.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import java.util.Date
 
-data class ArticleModel(
-    @SerializedName("source")
-    val source: SourceModel,
+@Entity
+data class ArticleEntity(
+    val sourceId: String,
     val author: String?,
     val title: String?,
     val description: String?,
+
+    @PrimaryKey
     val url: String,
+
     val urlToImage: String?,
-    val publishedAt: Date?,
     val content: String?
 )

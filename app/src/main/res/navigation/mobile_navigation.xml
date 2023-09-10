@@ -17,6 +17,12 @@
         <action
             android:id="@+id/action_nav_to_source"
             app:destination="@id/nav_source" />
+        <action
+            android:id="@+id/action_nav_to_search"
+            app:destination="@id/nav_search" />
+        <action
+            android:id="@+id/action_nav_to_favorite"
+            app:destination="@id/nav_favorite" />
     </fragment>
 
     <fragment
@@ -67,5 +73,16 @@
         <action
             android:id="@+id/action_nav_to_article"
             app:destination="@id/nav_article" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_favorite"
+        android:name="com.virtualynx.newsviewer.ui.favorite.FavoriteFragment"
+        android:label="@string/menu_favorite"
+        tools:layout="@layout/fragment_favorite">
+
+        <action
+            android:id="@+id/action_nav_to_article_read"
+            app:destination="@id/nav_article_read" />
     </fragment>
 </navigation>

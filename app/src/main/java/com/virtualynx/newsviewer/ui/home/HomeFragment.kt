@@ -34,7 +34,9 @@ class HomeFragment : Fragment() {
             android.R.layout.simple_list_item_1,
             arrayOf(
                 "List Article By Category",
-                "List Article By Source"
+                "List Article By Source",
+                "Search Article",
+                "Favorite Article"
             )
         )
 
@@ -51,6 +53,10 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_nav_to_category)
             }else if(position == 1){
                 findNavController().navigate(R.id.action_nav_to_source)
+            }else if(position == 2){
+                findNavController().navigate(R.id.action_nav_to_search)
+            }else if(position == 3){
+                findNavController().navigate(R.id.action_nav_to_favorite)
             }
         }
 

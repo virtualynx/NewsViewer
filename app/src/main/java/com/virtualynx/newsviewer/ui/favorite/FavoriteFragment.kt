@@ -1,4 +1,4 @@
-package com.virtualynx.newsviewer.ui.article
+package com.virtualynx.newsviewer.ui.favorite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,14 +13,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.virtualynx.newsviewer.R
 import com.virtualynx.newsviewer.databinding.FragmentArticleBinding
+import com.virtualynx.newsviewer.databinding.FragmentFavoriteBinding
 import com.virtualynx.newsviewer.model.ArticleModel
-import com.virtualynx.newsviewer.ui.favorite.FavoriteViewModel
 
-class ArticleFragment : Fragment(), ArticleItemClickListener {
+class FavoriteFragment : Fragment(), FavoriteItemClickListener {
 
-    private var _binding: FragmentArticleBinding? = null
+    private var _binding: FragmentFavoriteBinding? = null
 
-    private var _adapter: ArticleAdapter? = null
+    private var _adapter: FavoriteAdapter? = null
 
     private var _favoriteViewModel: FavoriteViewModel?= null
 
@@ -35,16 +35,15 @@ class ArticleFragment : Fragment(), ArticleItemClickListener {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val viewModel = ViewModelProvider(this).get(ArticleViewModel::class.java)
         _favoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
-        _binding = FragmentArticleBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        _adapter = ArticleAdapter(this)
-        binding.rvArticle.adapter = _adapter
+        _adapter = FavoriteAdapter(this)
+        binding.rvFavorite.adapter = _adapter
 
-        viewModel.articles.observe(viewLifecycleOwner, Observer {
+        favoriteViewModel.articles.observe(viewLifecycleOwner, Observer {
             if (it!=null && it.isNotEmpty()){
                 adapter.setData(it)
             }else if(it.isEmpty()){
@@ -54,25 +53,11 @@ class ArticleFragment : Fragment(), ArticleItemClickListener {
 
                 Toast.makeText(requireActivity(), "Cannot fetch source list", Toast.LENGTH_LONG).show()
             }
-            binding.rvArticle.visibility = View.VISIBLE
+            binding.rvFavorite.visibility = View.VISIBLE
             binding.progressArticle.visibility = View.GONE
         })
 
-        val sourceId = arguments?.getString("sourceId").toString()
-        val sourceName = arguments?.getString("sourceName").toString()
-        val q = arguments?.getString("q")
-
-        var title: String = "Source - $sourceName"
-        if(!q.isNullOrEmpty()){
-            title += " (Key: $q)"
-        }
-        (activity as AppCompatActivity).supportActionBar?.title = title
-
-        if(!q.isNullOrEmpty()){
-            viewModel.fetch(sourceId, q)
-        }else{
-            viewModel.fetch(sourceId)
-        }
+        favoriteViewModel.fetch(requireContext())
 
         return root
     }
@@ -81,7 +66,6 @@ class ArticleFragment : Fragment(), ArticleItemClickListener {
         super.onDestroyView()
         _binding = null
         _adapter = null
-        _favoriteViewModel = null
     }
 
     override fun onItemClicked(view: View, article: ArticleModel?) {
@@ -93,9 +77,10 @@ class ArticleFragment : Fragment(), ArticleItemClickListener {
 
     override fun onItemFavoriteClicked(view: View, article: ArticleModel?) {
         article?.let {
-            favoriteViewModel.save(requireContext(), it)
+            favoriteViewModel.delete(requireContext(), it)
+            favoriteViewModel.fetch(requireContext())
 
-            Toast.makeText(requireActivity(), "Article saved to Favorite", Toast.LENGTH_LONG).show()
+            Toast.makeText(requireActivity(), "Article deleted from Favorite", Toast.LENGTH_LONG).show()
         }
     }
 }
