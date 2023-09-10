@@ -8,18 +8,81 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.virtualynx.newsviewer.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_nav_to_category"
+            app:destination="@id/nav_category" />
+        <action
+            android:id="@+id/action_nav_to_source"
+            app:destination="@id/nav_source" />
+        <action
+            android:id="@+id/action_nav_to_search"
+            app:destination="@id/nav_search" />
+        <action
+            android:id="@+id/action_nav_to_favorite"
+            app:destination="@id/nav_favorite" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.virtualynx.newsviewer.ui.category.CategoryFragment"
         android:label="@string/menu_categories"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_category">
+
+        <action
+            android:id="@+id/action_nav_to_source"
+            app:destination="@id/nav_source" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.virtualynx.newsviewer.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_source"
+        android:name="com.virtualynx.newsviewer.ui.source.SourceFragment"
+        android:label="@string/menu_sources"
+        tools:layout="@layout/fragment_source">
+
+        <action
+            android:id="@+id/action_nav_to_article"
+            app:destination="@id/nav_article" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.virtualynx.newsviewer.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_article"
+        android:name="com.virtualynx.newsviewer.ui.article.ArticleFragment"
+        android:label="@string/menu_articles"
+        tools:layout="@layout/fragment_article">
+
+        <action
+            android:id="@+id/action_nav_to_article_read"
+            app:destination="@id/nav_article_read" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_article_read"
+        android:name="com.virtualynx.newsviewer.ui.article.read.ArticleReadFragment"
+        android:label="@string/menu_article_read"
+        tools:layout="@layout/fragment_article_read" />
+
+    <fragment
+        android:id="@+id/nav_search"
+        android:name="com.virtualynx.newsviewer.ui.search.SearchFragment"
+        android:label="@string/menu_search"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_nav_to_article"
+            app:destination="@id/nav_article" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_favorite"
+        android:name="com.virtualynx.newsviewer.ui.favorite.FavoriteFragment"
+        android:label="@string/menu_favorite"
+        tools:layout="@layout/fragment_favorite">
+
+        <action
+            android:id="@+id/action_nav_to_article_read"
+            app:destination="@id/nav_article_read" />
+    </fragment>
 </navigation>
