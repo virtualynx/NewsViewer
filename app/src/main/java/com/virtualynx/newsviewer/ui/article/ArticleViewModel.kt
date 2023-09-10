@@ -14,9 +14,18 @@ import kotlin.streams.toList
 
 class ArticleViewModel : ViewModel() {
     val articles: MutableLiveData<List<ArticleModel>> = MutableLiveData()
+    val errorMsg: MutableLiveData<String> = MutableLiveData()
 
     fun fetch(source: String){
-        val client = ServiceBuilder.buildService(NewsService::class.java).getArticlesBySources(source)
+        this.fetch(source, null)
+    }
+
+    fun fetch(source: String, q: String?){
+        var client:  Call<ApiResponseArticle> = if(!q.isNullOrEmpty()){
+            ServiceBuilder.buildService(NewsService::class.java).getArticlesBySources(source, q)
+        }else{
+            ServiceBuilder.buildService(NewsService::class.java).getArticlesBySources(source)
+        }
 
         client.enqueue(object : Callback<ApiResponseArticle> {
 
@@ -26,7 +35,14 @@ class ArticleViewModel : ViewModel() {
             ) {
                 val responseBody = response.body()
                 if (!response.isSuccessful || responseBody == null) {
-                    error("API call error: ${response.code()}")
+                    if(response.code() == 429){
+                        errorMsg.postValue("You reading too many article within a window of time. Back off for a while.")
+                    }else if(response.code() == 500){
+                        errorMsg.postValue("newsapi.org is down. Try again later.")
+                    }else{
+                        error("API call error: ${response.code()}")
+                        errorMsg.postValue("Application error, contact administrator")
+                    }
                     return
                 }
 

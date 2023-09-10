@@ -16,6 +16,8 @@ interface NewsService {
     @GET("everything")
     fun getArticlesBySources (
         @Query("sources") sources: String,
+        @Query("q") q: String = "",
+        @Query("sortBy") sortBy: String = "popularity",
         @Query("apiKey") key: String = ServiceBuilder.API_KEY,
     ) : Call<ApiResponseArticle>
 }

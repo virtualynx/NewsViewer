@@ -29,11 +29,6 @@ class HomeFragment : Fragment() {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-//        val textView: TextView = binding.textHome
-//        homeViewModel.text.observe(viewLifecycleOwner) {
-//            textView.text = it
-//        }
-
         binding.homeList.adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_list_item_1,
@@ -57,9 +52,6 @@ class HomeFragment : Fragment() {
             }else if(position == 1){
                 findNavController().navigate(R.id.action_nav_to_source)
             }
-
-//            val action = .actionToDestinationFragment()
-//            findNavController().navigate(action)
         }
 
         return root

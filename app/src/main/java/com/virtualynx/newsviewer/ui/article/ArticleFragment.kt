@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -40,13 +41,9 @@ class ArticleFragment : Fragment(), ArticleItemClickListener {
 
         viewModel.articles.observe(viewLifecycleOwner, Observer {
             if (it!=null && it.isNotEmpty()){
-//                binding.sourceList.adapter = ArrayAdapter(
-//                    requireContext(),
-//                    android.R.layout.simple_list_item_1,
-//                    it.stream().map{ a -> a.name}.toList()
-//                )
-
                 adapter.setData(it)
+            }else if(it.isEmpty()){
+                Toast.makeText(requireActivity(), "No article found", Toast.LENGTH_LONG).show()
             }else{
                 println("Something went wrong")
 
@@ -56,24 +53,21 @@ class ArticleFragment : Fragment(), ArticleItemClickListener {
             binding.progressArticle.visibility = View.GONE
         })
 
-        arguments?.getString("sourceId")?.let { viewModel.fetch(it) }
+        val sourceId = arguments?.getString("sourceId").toString()
+        val sourceName = arguments?.getString("sourceName").toString()
+        val q = arguments?.getString("q")
 
-//        binding.lvSource.setOnItemClickListener { adapterView, view, position, id ->
-//            // Handle item click here
-//            val selectedItemId = id // You can get the ID of the clicked item if needed
-//            val itemAtPos = adapterView.getItemAtPosition(position)
-//            val itemIdAtPos = adapterView.getItemIdAtPosition(position)
-//
-//            // Navigate to the destination fragment
-////            findNavController().navigate(com.virtualynx.newsviewer.R.id.action_nav_to_category)
-////            val action = .actionToDestinationFragment()
-////            findNavController().navigate(action)
-//
-////            println("id: $id, itemAtPos: $itemAtPos, itemIdAtPos: $itemIdAtPos")
-//
-//            val selectedModel = sourceViewModel.sources.value?.get(position)
-//            println("selectedModel: $selectedModel")
-//        }
+        var title: String = "Source - $sourceName"
+        if(!q.isNullOrEmpty()){
+            title += " (Key: $q)"
+        }
+        (activity as AppCompatActivity).supportActionBar?.title = title
+
+        if(!q.isNullOrEmpty()){
+            viewModel.fetch(sourceId, q)
+        }else{
+            viewModel.fetch(sourceId)
+        }
 
         return root
     }

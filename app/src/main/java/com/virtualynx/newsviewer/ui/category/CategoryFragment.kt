@@ -92,7 +92,10 @@ class CategoryFragment : Fragment(), CategoryItemClickListener {
     }
 
     override fun onItemClicked(view: View, category: CategoryModel?) {
-        val bundle = bundleOf("categoryId" to category?.id)
+        val bundle = bundleOf(
+            "categoryId" to category?.id,
+            "categoryName" to category?.name
+        )
         findNavController().navigate(R.id.action_nav_to_source, bundle)
     }
 }

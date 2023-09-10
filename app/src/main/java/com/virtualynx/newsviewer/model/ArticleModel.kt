@@ -5,7 +5,7 @@ import java.util.Date
 
 data class ArticleModel(
     @SerializedName("source")
-    val sourceModel: SourceModel,
+    val source: SourceModel,
     val author: String?,
     val title: String?,
     val description: String?,

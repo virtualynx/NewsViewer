@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.virtualynx.newsviewer.R
 import com.virtualynx.newsviewer.databinding.FragmentSourceBinding
 import com.virtualynx.newsviewer.model.SourceModel
+import com.virtualynx.newsviewer.ui.category.CategoryViewModel
 
 class SourceFragment : Fragment(), SourceItemClickListener {
 
@@ -40,13 +42,9 @@ class SourceFragment : Fragment(), SourceItemClickListener {
 
         viewModel.sources.observe(viewLifecycleOwner, Observer {
             if (it!=null && it.isNotEmpty()){
-//                binding.sourceList.adapter = ArrayAdapter(
-//                    requireContext(),
-//                    android.R.layout.simple_list_item_1,
-//                    it.stream().map{ a -> a.name}.toList()
-//                )
-
                 adapter.setData(it)
+            }else if(it.isEmpty()){
+                Toast.makeText(requireActivity(), "No source found", Toast.LENGTH_LONG).show()
             }else{
                 println("Something went wrong")
 
@@ -57,6 +55,12 @@ class SourceFragment : Fragment(), SourceItemClickListener {
         })
 
         val categoryId = arguments?.getString("categoryId")
+
+        if(!categoryId.isNullOrEmpty()){
+            val categoryName = arguments?.getString("categoryName")
+            (activity as AppCompatActivity).supportActionBar?.title = "By Source (Category: $categoryName)"
+        }
+
         viewModel.fetch(categoryId)
 
 //        binding.lvSource.setOnItemClickListener { adapterView, view, position, id ->
@@ -88,7 +92,10 @@ class SourceFragment : Fragment(), SourceItemClickListener {
     override fun onItemClicked(view: View, source: SourceModel?) {
         println("Clicked source: $source")
 
-        val bundle = bundleOf("sourceId" to source?.id)
+        val bundle = bundleOf(
+            "sourceId" to source?.id,
+            "sourceName" to source?.name
+        )
         findNavController().navigate(R.id.action_nav_to_article, bundle)
     }
 }

@@ -14,7 +14,7 @@ import kotlin.streams.toList
 class SourceViewModel : ViewModel() {
     val sources: MutableLiveData<List<SourceModel>> = MutableLiveData()
 
-    fun fetch(category: String?){
+    fun fetch(category: String? = null){
         var client:  Call<ApiResponseSource>
 
         if(category.isNullOrEmpty()){

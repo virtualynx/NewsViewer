@@ -6,7 +6,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ServiceBuilder {
     companion object ServiceBuilder {
-        public const val API_KEY = "f565c7bc7aa34aa6b908850e698ae574"
+//        public const val API_KEY = "f565c7bc7aa34aa6b908850e698ae574"
+        public const val API_KEY = "9f63bd7c7ee6415fb67203d33cc79244"
+
         private const val URL = "https://newsapi.org/v2/"
 
         //CREATE HTTP CLIENT
